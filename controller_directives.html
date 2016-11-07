@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Filter Food using Controllers and Directives</title>
+    <link rel="stylesheet" href="./Skeleton-2.0.4/css/normalize.css">
+    <link rel="stylesheet" href="./Skeleton-2.0.4/css/skeleton.css">
+    <script src="bower_components/angular/angular.js"></script>
+    <script>
+        var app = angular.module('app', []);
+        
+        app.controller('foodsController', ['$scope', function ($scope) {
+            $scope.foods = [];
+            $scope.addFood = function () {
+                $scope.foods.push($scope.food);
+                $scope.food = "";
+            }
+        }])
+    </script>
+</head>
+<body>
+<div ng-controller="foodsController">
+    <div>
+        <h4><u>Add Food</u></h4>
+        <form>
+            <input type="text" ng-model="food">
+            <input type="submit" value="add" ng-click="addFood()">
+        </form>
+        <h6 ng-if="food">
+            You are currently typing: {{food}}
+        </h6>
+    </div>
+    <div>
+        <h4><u>Food Stuff</u></h4>
+        <input type="text" placeholder="filter..." ng-model="filterFood">
+        <div ng-repeat="food in foods | filter: filterFood">
+            <h6>{{food}}</h6>
+        </div>
+    </div>
+</div>
+</body>
+</html>
